@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const chats = require("./data/Data");
+const connectDB = require("./Config/db");
 dotenv.config();
 const app = express();
 
@@ -9,12 +10,15 @@ const app = express();
 // middleware
 app.use(express.json())
 
-// get besic server
+// connect db
+connectDB()
+
+// get first server
 app.get('/', (req, res) => {
     res.send('This is my practice server...')
 })
 
-// get besic server
+// get first server
 app.get('/api/users', (req, res) => {
     res.send(chats)
 })
