@@ -3,12 +3,14 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const chats = require("./data/Data");
 const connectDB = require("./Config/db");
+const userRoutes = require("./Routes/UserRoutes");
 dotenv.config();
 const app = express();
 
 
 // middleware
 app.use(express.json())
+app.use('/api/user', userRoutes)
 
 // connect db
 connectDB()

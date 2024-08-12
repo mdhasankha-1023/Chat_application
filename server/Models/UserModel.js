@@ -7,6 +7,6 @@ const userSchema = mongoose.Schema({
     pic: {type: String, require: true},
 }, {timestamps: true})
 
-const User = mongoose.model("Message", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;
