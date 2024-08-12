@@ -4,13 +4,17 @@ const dotenv = require("dotenv");
 const chats = require("./data/Data");
 const connectDB = require("./Config/db");
 const userRoutes = require("./Routes/UserRoutes");
+const {notFound, errorHandler} = require("./Middleware/errorMiddleware");
 dotenv.config();
 const app = express();
 
 
 // middleware
 app.use(express.json())
+app.use(cors())
 app.use('/api/user', userRoutes)
+app.use(notFound)
+app.use(errorHandler)
 
 // connect db
 connectDB()

@@ -1,14 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [pic, setPic] = useState("");
+  const navigate = useNavigate("");
 
   //   handleRegister
-  const handleRegister = () => {
-    console.log(name, email, password);
+  const handleRegister = async() => {
+    const userInfo = {name, email, password, pic};
+    console.log(userInfo);
+
+    const res = await axios.post('http://localhost:5000/api/user/register', userInfo);
+    console.log(res.data.data)
+    if(res.status === 200){
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Register successfully",
+        showConfirmButton: false,
+        timer: 1200
+      });
+      navigate('/login')
+      localStorage.setItem('userInfo', JSON.stringify(res.data.data));
+    }
+    
   };
 
   return (
@@ -52,6 +73,19 @@ export default function Register() {
             value={password}
             type="password"
             placeholder="Create a uniq password"
+            className="input input-bordered"
+            required
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Pic URL</span>
+          </label>
+          <input
+            onChange={(e) => setPic(e.target.value)}
+            value={pic}
+            type="text"
+            placeholder="Give your pic url"
             className="input input-bordered"
             required
           />
