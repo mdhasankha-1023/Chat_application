@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const chats = require("./data/Data");
 const connectDB = require("./Config/db");
 const userRoutes = require("./Routes/UserRoutes");
+const chatRoutes = require("./Routes/ChatRoutes");
 const {notFound, errorHandler} = require("./Middleware/errorMiddleware");
 dotenv.config();
 const app = express();
@@ -13,6 +14,10 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 app.use('/api/user', userRoutes)
+app.use('/api/chat', chatRoutes)
+
+
+// error handler
 app.use(notFound)
 app.use(errorHandler)
 
